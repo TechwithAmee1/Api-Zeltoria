@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@xct007/frieren-scraper": "^0.0.2",
+    "@bochilteam/scraper": "^4.0.22-alpha.0",
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "base32": "0.0.6",
@@ -34,6 +35,8 @@
     "node-fetch": "^2.6.1",
     "popper.js": "^1.16.1",
     "request": "^2.88.2",
+    "jsdom": "^21.1.1",
+    "util": "^0.12.5",
     "scraper-jsc": "^0.0.3",
     "ssl-express-www": "^3.0.7"
   }
