@@ -315,7 +315,9 @@ router.get('/download/youtube', async (req, res, next) => {
     if (!moqua.includes(aqua)) return res.json({ developer: develop, mess: `quality ${aqua} not found, available qualitys: ${moqua.join(', ')}` })
 
     let hasil = await YoutubeSl(url, aqua)
-    res.json(PromiseRes(hasil)).status(200)
+    res.json(PromiseRes(hasil),
+    req.query.url,
+    req.query.quality).status(200)
   } catch (err) {
     res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
   }
