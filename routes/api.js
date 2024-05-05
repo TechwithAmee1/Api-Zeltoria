@@ -26,6 +26,19 @@ attp } = require('../lib/scrape');
 // Lib
 var { fetchJson, getBuffer } = require('../lib/myfunc');
 const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify } = require('../lib/downloads')
+const util = require('util'),
+  develop = '@xorizn';
+
+//Func is URL
+const isUrl = (url) => {
+  try {
+    if (typeof url !== 'string') throw new Error('url is a string!');
+    return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&/=]*)/, 'gi'));
+  } catch (err) {
+    console.log(util.format(err))
+  };
+};
+
 // Settings
 const author = "Zeltoria"
 
