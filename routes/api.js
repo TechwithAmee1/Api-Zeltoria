@@ -25,6 +25,7 @@ animedif,
 attp } = require('../lib/scrape');
 // Lib
 var { fetchJson, getBuffer } = require('../lib/myfunc');
+const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify } = require('../lib/downloads')
 // Settings
 const author = "Zeltoria"
 
@@ -45,8 +46,21 @@ mess = {
     	code: 403,
     	message: 'Error, Invalid Query',
     	maintanied_by: 'Zeltoria'
+    },
+    null_url: {
+        developer: develop,
+        mess: "Input parameter 'url'"
+    },
+    is_url: {
+        developer: develop,
+        mess: 'Insert url!'
     }
 }
+
+const PromiseRes = (hasil) => {
+  return { developer: develop, status: 200, result: hasil }
+}
+
 // Features
 // ANIMEHHHHHHHHHHHHHHHHHHHH
 router.get('/animanga/komikuid', async (req, res, next) => {
@@ -164,55 +178,134 @@ router.get('/animanga/anoboy-latest', async (req, res, next) => {
 //-----------------------------------------------------------------
 
 // Downloader
+router.get('/download/instagram', async (req, res, next) => {
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url);
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('instagram')) return res.json({ developer: develop, mess: `${url} is not instagram url` });
+    let hasil = await Instagram(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
+})
+router.get('/download/spotify', async (req, res, next) => {
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url);
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('spotify')) return res.json({ developer: develop, mess: `${url} is not spotify url` });
+    
+    let hasil = await spotify(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
+})
 router.get('/download/facebook', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await fetchJson(`https://xorizn-downloads.vercel.app/api/downloads/facebook?url=${url}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    let hasil = await FaceBook(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
 })
 router.get('/download/mediafire', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await fetchJson(`https://xorizn-downloads.vercel.app/api/downloads/mediafire?url=${url}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('mediafire')) return res.json({ developer: develop, mess: `${url} is not mediafire url` });
+    let hasil = await MediaFire(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
+})
+router.get('/download/musicaldown', async (req, res, next) => {
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('tiktok')) return res.json({ developer: develop, mess: `${url} is not tiktok url` });
+    let hasil = await MusiCally(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
 })
 router.get('/download/tiktok', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await fetchJson(`https://xorizn-downloads.vercel.app/api/downloads/tiktok?url=${url}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('tiktok')) return res.json({ developer: develop, mess: `${url} is not tiktok url` });
+    let hasil = await TikTok(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
+})
+router.get('/download/pinterest', async (req, res, next) => {
+  try {
+    const url = req.query.url;
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('pin')) return res.json({ developer: develop, mess: `${url} is not pinterest url` });
+    let hasil = await PinterestVideo(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
 })
 router.get('/download/soundcloud', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await fetchJson(`https://xorizn-downloads.vercel.app/api/downloads/soundcloud?url=${url}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
+  try {
+    const url = req.query.url;
+    //All Inputs
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('soundcloud')) return res.json({ developer: develop, mess: `${url} is not soundcloud url` });
+    let hasil = await SoundCloude(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
 })
 router.get('/download/twitter', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await fetchJson(`https://xorizn-downloads.vercel.app/api/downloads/twitter?url=${url}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
+  try {
+    const url = req.query.url;
+    //All Inputs
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('twitter')) return res.json({ developer: develop, mess: `${url} is not twitter url` });
+
+    let hasil = await TwiTter(url)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
+})
+router.get('/download/youtube', async (req, res, next) => {
+  try {
+    const url = req.query.url,
+      quality = req.query.quality,
+      aqua = quality ? quality : '480p',
+      moqua = ['1080p', '720p', '480p', '360p', '240p', '144p'];
+    //All Inputs
+    if (!url) return res.json(mess.null_url)
+    if (!isUrl(url)) return res.json(mess.is_url);
+    if (!url.includes('youtu')) return res.json({ developer: develop, mess: `${url} is not youtube url` });
+    if (!moqua.includes(aqua)) return res.json({ developer: develop, mess: `quality ${aqua} not found, available qualitys: ${moqua.join(', ')}` })
+
+    let hasil = await YoutubeSl(url, aqua)
+    res.json(PromiseRes(hasil)).status(200)
+  } catch (err) {
+    res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
+  }
 })
 router.get('/download/play', async (req, res, next) => {
 	var query = req.query.q
