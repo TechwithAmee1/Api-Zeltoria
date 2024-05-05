@@ -308,6 +308,7 @@ router.get('/download/youtube', async (req, res, next) => {
       quality = req.query.quality,
       aqua = quality ? quality : '480p',
       moqua = ['1080p', '720p', '480p', '360p', '240p', '144p'];
+      console.log(req)
     //All Inputs
     if (!url) return res.json(mess.null_url)
     if (!isUrl(url)) return res.json(mess.is_url);
@@ -315,7 +316,7 @@ router.get('/download/youtube', async (req, res, next) => {
     if (!moqua.includes(aqua)) return res.json({ developer: develop, mess: `quality ${aqua} not found, available qualitys: ${moqua.join(', ')}` })
 
     let hasil = await YoutubeSl(url, aqua)
-    res.json(PromiseRes(req)).status(200)
+    res.json(PromiseRes(hasil)).status(200)
   } catch (err) {
     res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
   }
