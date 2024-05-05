@@ -572,19 +572,6 @@ router.get('/news/tixid', async (req, res, next) => {
 })
 //-----------------------------------------------------------------
 
-// Maker
-router.get('/stalk/instagram', async (req, res, next) => {
-	var query = req.query.q
-	if (!query) return res.json(mess.notquery)
-	let data = await stalk.instagram('profile', `${query}`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
-})
-//-----------------------------------------------------------------
-
 // Tools
 router.get('/tools/ssweb', async (req, res, next) => {
     var url = req.query.url
