@@ -343,7 +343,7 @@ router.get('/test', async (req, res, next) => {
         const link3 = url.split('=')[1];
         link = link3.split('&')[0];
     }
-	if (!query) return res.json(mess.notquery)
+	if (!url) return res.json(mess.notquery)
 	let data = await get_video_details(link);
 	res.json({
 	status: true,
