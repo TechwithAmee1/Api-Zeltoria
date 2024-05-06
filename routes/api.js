@@ -26,7 +26,7 @@ attp } = require('../lib/scrape');
 // Lib
 var { fetchJson, getBuffer } = require('../lib/myfunc');
 const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify, npm } = require('../lib/downloads')
-const { get_video_details } = require('yt-video-parser')
+const { get_video_details } = import('yt-video-parser')
 const util = require('util'),
   develop = '@xorizn';
 
