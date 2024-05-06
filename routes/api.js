@@ -26,6 +26,7 @@ attp } = require('../lib/scrape');
 // Lib
 var { fetchJson, getBuffer } = require('../lib/myfunc');
 const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify, npm } = require('../lib/downloads')
+const { get_video_details } = require('yt-video-parser')
 const util = require('util'),
   develop = '@xorizn';
 
@@ -331,6 +332,25 @@ router.get('/download/npm', async (req, res, next) => {
 	})
 })
 
+router.get('/test', async (req, res, next) => {
+    const url = req.query.url
+    let link;
+    const links = ["/youtu.be/", "/shorts/", "/live/"];
+    if (links.some(linkPattern => url.includes(linkPattern))) {
+        const link3 = url.split(links.find(linkPattern => url.includes(linkPattern)))[1];
+        link = link3.split('?')[0];
+    } else if (url.includes('?v=')) {
+        const link3 = url.split('=')[1];
+        link = link3.split('&')[0];
+    }
+	if (!query) return res.json(mess.notquery)
+	let data = await get_video_details(link);
+	res.json({
+	status: true,
+	author: `${author}`,
+	result: data
+	})
+})
 //-----------------------------------------------------------------
 
 // Search
