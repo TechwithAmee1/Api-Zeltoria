@@ -25,7 +25,7 @@ animedif,
 attp } = require('../lib/scrape');
 // Lib
 var { fetchJson, getBuffer } = require('../lib/myfunc');
-const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify } = require('../lib/downloads')
+const { FaceBook, Instagram, MediaFire, MusiCally, PinterestVideo, SoundCloude, TikTok, TwiTter, YoutubeSl, spotify, npm } = require('../lib/downloads')
 const util = require('util'),
   develop = '@xorizn';
 
@@ -308,7 +308,6 @@ router.get('/download/youtube', async (req, res, next) => {
       quality = req.query.quality,
       aqua = quality ? quality : '480p',
       moqua = ['1080p', '720p', '480p', '360p', '240p', '144p'];
-      console.log(req)
     //All Inputs
     if (!url) return res.json(mess.null_url)
     if (!isUrl(url)) return res.json(mess.is_url);
@@ -321,34 +320,14 @@ router.get('/download/youtube', async (req, res, next) => {
     res.status(500).json({ developer: develop, mess: `${err.toString()}. Report this error to Developer(Xorizn)` })
   }
 })
-router.get('/download/play', async (req, res, next) => {
-	var query = req.query.q
+router.get('/download/npm', async (req, res, next) => {
+    var query = req.query.q
 	if (!query) return res.json(mess.notquery)
-	let data = await api.downloader.yt.play(query)
+	let data = await npm(query)
 	res.json({
 	status: true,
 	author: `${author}`,
-	result: data.result
-	})
-})
-router.get('/download/ytmp3', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await api.downloader.yt.mp3(url)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
-})
-router.get('/download/ytmp4', async (req, res, next) => {
-	var url = req.query.url
-	if (!url) return res.json(mess.noturl)
-	let data = await api.downloader.yt.mp4(url)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
+	result: data
 	})
 })
 
